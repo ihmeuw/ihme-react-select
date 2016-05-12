@@ -654,7 +654,8 @@ const Select = React.createClass({
 						onBlur={this.handleInputBlur}
 						onFocus={this.handleInputFocus}
 						ref="input"
-						style={{ border: 0, width: 1, display:'inline-block' }}/>
+						style={{ border: 0, width: 1, display:'inline-block' }}
+					/>
 				);
 			}
 			if (this.props.autosize) {
