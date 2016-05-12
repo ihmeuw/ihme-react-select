@@ -1,31 +1,11 @@
-[![NPM](https://badge.fury.io/js/react-select.png)](https://www.npmjs.com/package/react-select)
-[![Build Status](https://travis-ci.org/JedWatson/react-select.svg?branch=master)](https://travis-ci.org/JedWatson/react-select)
-[![Coverage Status](https://coveralls.io/repos/JedWatson/react-select/badge.svg?branch=master&service=github)](https://coveralls.io/github/JedWatson/react-select?branch=master)
 
-React-Select
+IHME-React-Select
 ============
 
-A Select control built with and for [React](http://facebook.github.io/react/index.html). Initially built for use in [KeystoneJS](http://www.keystonejs.com).
-
-
-## New version 1.0.0-beta
-
-I've nearly completed a major rewrite of this component (see issue [#568](https://github.com/JedWatson/react-select/issues/568) for details and progress). The new code has been merged into `master`, and `react-select@1.0.0-beta` has been published to npm and bower.
-
-1.0.0 has some breaking changes. The documentation below still needs to be updated for the new API; notes on the changes can be found in [CHANGES.md](https://github.com/JedWatson/react-select/blob/master/CHANGES.md) and will be finalised into [HISTORY.md](https://github.com/JedWatson/react-select/blob/master/HISTORY.md) soon.
-
-Our tests need some major updates to work with the new API (see [#571](https://github.com/JedWatson/react-select/issues/571)) and are causing the build to fail, but the component is stable and robust in actual usage.
-
-Testing, feedback and PRs for the new version are appreciated.
+This is a fork of [JedWatson's React-Select](https://github.com/JedWatson/react-select), with little intention of future parity with upstream.
 
 
 ## Demo & Examples
-
-Live demo: [jedwatson.github.io/react-select](http://jedwatson.github.io/react-select/)
-
-The live demo is still running `v0.9.1`.
-
-To build the **new 1.0.0** examples locally, clone this repo then run:
 
 ```javascript
 npm install
@@ -37,18 +17,18 @@ Then open [`localhost:8000`](http://localhost:8000) in a browser.
 
 ## Installation
 
-The easiest way to use React-Select is to install it from NPM and include it in your own React build process (using [Browserify](http://browserify.org), etc).
-
 ```javascript
-npm install react-select --save
+npm install --save https://github.com/ihmeuw/ihme-react-select.git
 ```
 
-You can also use the standalone build by including `dist/react-select.js` and `dist/react-select.css` in your page. If you use this, make sure you have already included the following dependencies:
+You can also use the standalone build by including `dist/ihme-react-select.js` and `dist/ihme-react-select.css` in your page. If you use this, make sure you have already included the following dependencies:
 
 * [React](http://facebook.github.io/react/)
 * [classNames](http://jedwatson.github.io/classnames/)
 * [react-input-autosize](https://github.com/JedWatson/react-input-autosize)
 
+
+## ***NOTE**: Docs below this point have not been updated since forking. This section will re-written.*
 
 ## Usage
 
