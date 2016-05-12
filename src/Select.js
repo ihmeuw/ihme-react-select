@@ -8,6 +8,7 @@ import stripDiacritics from './utils/stripDiacritics';
 import Async from './Async';
 import Option from './Option';
 import Value from './Value';
+import Arrow from './Arrow';
 
 function stringifyValue (value) {
 	if (typeof value === 'object') {
@@ -29,6 +30,7 @@ const Select = React.createClass({
 	propTypes: {
 		addLabelText: React.PropTypes.string,       // placeholder displayed when you want to add a label on a multi-value input
 		allowCreate: React.PropTypes.bool,          // whether to allow creation of new entries
+		arrowComponent: React.PropTypes.func,				// customized arrow component to render
 		autoBlur: React.PropTypes.bool,             // automatically blur the component when an option is selected
 		autofocus: React.PropTypes.bool,            // autofocus the component on mount
 		autosize: React.PropTypes.bool,             // whether to enable autosizing or not
@@ -95,6 +97,7 @@ const Select = React.createClass({
 	getDefaultProps () {
 		return {
 			addLabelText: 'Add "{label}"?',
+			arrowComponent: Arrow,
 			autosize: true,
 			allowCreate: false,
 			backspaceRemoves: true,
@@ -704,10 +707,11 @@ const Select = React.createClass({
 	},
 
 	renderArrow () {
+		const ArrowComponent = this.props.arrowComponent;
 		return (
-			<span className="Select-arrow-zone" onMouseDown={this.handleMouseDownOnArrow}>
-				<span className="Select-arrow" onMouseDown={this.handleMouseDownOnArrow} />
-			</span>
+			<ArrowComponent
+				onMouseDown={this.handleMouseDownOnArrow}
+			/>
 		);
 	},
 
