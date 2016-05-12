@@ -615,19 +615,17 @@ const Select = React.createClass({
 		}
 		let onClick = this.props.onValueClick ? this.handleValueClick : null;
 		if (this.props.multi) {
-			return valueArray.map((value, i) => {
-				return (
-					<ValueComponent
-						disabled={this.props.disabled || value.clearableValue === false}
-						key={`value-${i}-${value[this.props.valueKey]}`}
-						onClick={onClick}
-						onRemove={this.removeValue}
-						value={value}
-						>
-						{renderLabel(value)}
-					</ValueComponent>
-				);
-			});
+			// pass in full valueArray, and stop mapping over the ValueComponent when multi === true
+			return (
+				<ValueComponent
+					disabled={this.props.disabled}
+					onClick={onClick}
+					onRemove={this.removeValue}
+					value={valueArray}
+					>
+					{renderLabel(valueArray)}
+				</ValueComponent>
+			);
 		} else if (!this.state.inputValue) {
 			if (isOpen) onClick = null;
 			return (
