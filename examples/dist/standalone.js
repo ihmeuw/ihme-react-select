@@ -67,7 +67,7 @@ var Async = _react2['default'].createClass({
 		noResultsText: stringOrNode, // placeholder displayed when there are no matching search results (shared with Select)
 		onInputChange: _react2['default'].PropTypes.func, // onInputChange handler: function (inputValue) {}
 		placeholder: stringOrNode, // field placeholder, displayed when there's no value (shared with Select)
-		searchPromptText: _react2['default'].PropTypes.string, // label to prompt for search input
+		searchPromptText: stringOrNode, // label to prompt for search input
 		searchingText: _react2['default'].PropTypes.string },
 	// message to display while options are loading
 	getDefaultProps: function getDefaultProps() {
@@ -136,6 +136,7 @@ var Async = _react2['default'].createClass({
 		}
 		if (this.props.ignoreAccents) input = (0, _utilsStripDiacritics2['default'])(input);
 		if (this.props.ignoreCase) input = input.toLowerCase();
+
 		this._lastInput = input;
 		if (input.length < this.props.minimumInput) {
 			return this.resetState();
@@ -160,9 +161,10 @@ var Async = _react2['default'].createClass({
 
 		if (this.props.isLoading) isLoading = true;
 		var placeholder = isLoading ? this.props.loadingPlaceholder : this.props.placeholder;
-		if (!options.length) {
-			if (this._lastInput.length < this.props.minimumInput) noResultsText = this.props.searchPromptText;
-			if (isLoading) noResultsText = this.props.searchingText;
+		if (isLoading) {
+			noResultsText = this.props.searchingText;
+		} else if (!options.length && this._lastInput.length < this.props.minimumInput) {
+			noResultsText = this.props.searchPromptText;
 		}
 		return _react2['default'].createElement(_Select2['default'], _extends({}, this.props, {
 			ref: 'select',
@@ -576,6 +578,10 @@ var Select = _react2['default'].createClass({
 			return;
 		}
 
+		if (event.target.tagName === 'INPUT') {
+			return;
+		}
+
 		// prevent default event handlers
 		event.stopPropagation();
 		event.preventDefault();
@@ -589,6 +595,14 @@ var Select = _react2['default'].createClass({
 		}
 
 		if (this.state.isFocused) {
+			// On iOS, we can get into a state where we think the input is focused but it isn't really,
+			// since iOS ignores programmatic calls to input.focus() that weren't triggered by a click event.
+			// Call focus() again here to be safe.
+			this.focus();
+
+			// clears value so that the cursor will be a the end of input then the component re-renders
+			this.refs.input.getInput().value = '';
+
 			// if the input is focused, ensure the menu is open
 			this.setState({
 				isOpen: true,
@@ -677,7 +691,7 @@ var Select = _react2['default'].createClass({
 		if (this.state.inputValue !== event.target.value && this.props.onInputChange) {
 			var nextState = this.props.onInputChange(newInputValue);
 			// Note: != used deliberately here to catch undefined and null
-			if (nextState != null) {
+			if (nextState != null && typeof nextState !== 'object') {
 				newInputValue = '' + nextState;
 			}
 		}

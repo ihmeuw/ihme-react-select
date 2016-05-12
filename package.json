@@ -1,14 +1,14 @@
 {
-  "name": "react-select",
-  "version": "1.0.0-beta13",
-  "description": "A Select control built with and for ReactJS",
+  "name": "ihme-react-select",
+  "version": "1.0.0",
+  "description": "A Select control built with and for ReactJS; fork of JedWatson's React-Select",
   "main": "lib/Select.js",
-  "style": "dist/react-select.min.css",
-  "author": "Jed Watson",
+  "style": "dist/ihme-react-select.min.css",
+  "author": "Gabe Medrash",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/JedWatson/react-select.git"
+    "url": "https://github.com/ihmeuw/ihme-react-select.git"
   },
   "dependencies": {
     "classnames": "^2.2.4",
@@ -52,15 +52,10 @@
   },
   "scripts": {
     "build": "gulp clean && NODE_ENV=production gulp build",
-    "bump": "gulp bump",
-    "bump:major": "gulp bump:major",
-    "bump:minor": "gulp bump:minor",
     "cover": "istanbul cover _mocha -- -u exports --compilers js:babel/register -R spec",
     "coveralls": "NODE_ENV=test istanbul cover _mocha --report lcovonly -- -u exports --compilers js:babel/register -R spec && cat coverage/lcov.info | coveralls",
     "examples": "gulp dev:server",
     "lint": "eslint .",
-    "publish:examples": "NODE_ENV=production gulp publish:examples",
-    "release": "NODE_ENV=production gulp release",
     "start": "gulp dev",
     "test": "npm run lint && mocha --compilers js:babel/register",
     "watch": "gulp watch:lib"
