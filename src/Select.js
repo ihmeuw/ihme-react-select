@@ -849,6 +849,7 @@ const Select = React.createClass({
 
 		return (
 			<div ref="menuContainer" className="Select-menu-outer" style={this.props.menuContainerStyle}>
+        {this.renderInput(valueArray)}
 				<div ref="menu" className="Select-menu"
 						 style={this.props.menuStyle}
 						 onScroll={this.handleMenuScroll}
@@ -889,12 +890,11 @@ const Select = React.createClass({
 						 onTouchStart={this.handleTouchStart}
 						 onTouchMove={this.handleTouchMove}>
 					{this.renderValue(valueArray, isOpen)}
-					{this.renderInput(valueArray)}
 					{this.renderLoading()}
 					{this.renderClear()}
 					{this.renderArrow()}
 				</div>
-				{isOpen ? this.renderOuter(options, !this.props.multi ? valueArray : null, focusedOption) : null}
+				{isOpen ? this.renderOuter(options, valueArray, focusedOption) : null}
 			</div>
 		);
 	}
