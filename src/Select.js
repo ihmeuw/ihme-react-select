@@ -496,7 +496,7 @@ const Select = React.createClass({
 	selectValue (value) {
 		this.hasScrolledToOption = false;
 		if (this.props.multi) {
-			this.addValue(value);
+			this.props.value.includes(value) ? this.removeValue(value) : this.addValue(value);
 			this.setState({
 				inputValue: '',
 			});
