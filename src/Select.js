@@ -210,14 +210,13 @@ const Select = React.createClass({
 		}
 	},
 
-	focus () {
-		if (!this.refs.input) return;
-		this.refs.input.focus();
-
-		if (this.props.openAfterFocus) {
+	focus(preventOpen = false) {
+		if (!this.state.isOpen && !preventOpen && (this.props.openAfterFocus || this._openAfterFocus)) {
 			this.setState({
 				isOpen: true,
-			});
+			}, () => {
+        if (this.refs.input) this.refs.input.focus();
+      });
 		}
 	},
 
@@ -284,7 +283,7 @@ const Select = React.createClass({
 			this.focus();
 
 			// clears value so that the cursor will be a the end of input then the component re-renders
-			this.refs.input.getInput().value = '';
+			if (this.refs.input) this.refs.input.value = '';
 
 			// if the input is focused, ensure the menu is open
 			this.setState({
@@ -331,7 +330,8 @@ const Select = React.createClass({
 	closeMenu () {
 		this.setState({
 			isOpen: false,
-			isPseudoFocused: this.state.isFocused && !this.props.multi,
+      isFocused: false,
+      isPseudoFocused: false,
 			inputValue: '',
 		});
 		this.hasScrolledToOption = false;
@@ -538,7 +538,7 @@ const Select = React.createClass({
 		this.setState({
 			isOpen: false,
 			inputValue: '',
-		}, this.focus);
+		}, () => { this.focus(true); });
 	},
 
 	focusOption (option) {
