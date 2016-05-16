@@ -70,6 +70,7 @@ const Select = React.createClass({
 		onInputChange: React.PropTypes.func,        // onInputChange handler: function (inputValue) {}
 		onMenuScrollToBottom: React.PropTypes.func, // fires when the menu is scrolled to the bottom; can be used to paginate options
 		onOpen: React.PropTypes.func,               // fires when the menu is opened
+		onValueRemove: React.PropTypes.func,				// onRemove handler for valueComponent: function(value, event) {}
 		onValueClick: React.PropTypes.func,         // onClick handler for value labels: function (value, event) {}
 		openAfterFocus: React.PropTypes.bool,		// boolean to enable opening dropdown when focused
 		openOnFocus: React.PropTypes.bool,          // always open options menu on focus
@@ -614,17 +615,19 @@ const Select = React.createClass({
 		if (!valueArray.length) {
 			return !this.state.inputValue ? <div className="Select-placeholder">{this.props.placeholder}</div> : null;
 		}
-		let onClick = this.props.onValueClick ? this.handleValueClick : null;
+		let onClick = this.props.onValueClick || this.handleValueClick;
+		const onRemove = this.props.onValueRemove || this.removeValue;
+
 		if (this.props.multi) {
 			// pass in full valueArray, and stop mapping over the ValueComponent when multi === true
 			return (
 				<ValueComponent
 					disabled={this.props.disabled}
 					onClick={onClick}
-					onRemove={this.removeValue}
+					onRemove={onRemove}
 					value={valueArray}
 					>
-					{renderLabel(valueArray)}
+					{renderLabel({ placeholder: this.props.placeholder })}
 				</ValueComponent>
 			);
 		} else if (!this.state.inputValue) {
