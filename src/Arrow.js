@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
-const Arrow = React.createClass({
-  propTypes: {
-    handleMouseDownOnArrow: React.PropTypes.func // method to handle mouseLeave on option element
-  },
+const propTypes = {
+  onMouseDown: PropTypes.func // method to handle mouseLeave on option element
+};
 
-  render () {
-    return (
-      <span className="Select-arrow-zone" onMouseDown={this.props.handleMouseDownOnArrow}>
-				<span className="Select-arrow" onMouseDown={this.props.handleMouseDownOnArrow} />
-			</span>
-    );
-  }
-});
+const Arrow = (props) => {
+  return (
+    <span className="Select-arrow-zone" onMouseDown={props.onMouseDown}>
+      <span className="Select-arrow" onMouseDown={props.onMouseDown} />
+    </span>
+  );
+};
 
-module.exports = Arrow;
+Arrow.propTypes = propTypes;
+
+export default Arrow;
