@@ -44,7 +44,8 @@ const Select = React.createClass({
 		escapeClearsValue: React.PropTypes.bool,    // whether escape clears the value when the menu is closed
 		filterOption: React.PropTypes.func,         // method to filter a single option (option, filterString)
 		filterOptions: React.PropTypes.any,         // boolean to enable default filtering or function to filter the options array ([options], filterString, [values])
-		ignoreAccents: React.PropTypes.bool,        // whether to strip diacritics when filtering
+		hierarchical: React.PropTypes.bool,         // whether to render options as hierarchical list
+    ignoreAccents: React.PropTypes.bool,        // whether to strip diacritics when filtering
 		ignoreCase: React.PropTypes.bool,           // whether to perform case-insensitive filtering
 		inputProps: React.PropTypes.object,         // custom attributes for the Input
 		inputRenderer: React.PropTypes.func,        // returns a custom input component
@@ -764,6 +765,9 @@ const Select = React.createClass({
 					options,
 					selectValue: this.selectValue,
 					valueArray,
+          multi: this.props.multi,
+          hierarchical: this.props.hierarchical,
+          optionRenderer: this.props.optionRenderer
 				});
 			} else {
 				let Option = this.props.optionComponent;
