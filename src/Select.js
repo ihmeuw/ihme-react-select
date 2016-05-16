@@ -886,7 +886,12 @@ const Select = React.createClass({
 		});
 
 		return (
-			<div ref="wrapper" className={className} style={this.props.wrapperStyle}>
+			<div
+        ref="wrapper"
+        className={className}
+        style={this.props.wrapperStyle}
+        onBlur={this.closeMenu}
+      >
 				{this.renderHiddenField(valueArray)}
 				<div ref="control"
 						 className="Select-control"
