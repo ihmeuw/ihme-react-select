@@ -44,13 +44,16 @@
 // base
 
 .Select-control {
+	display: flex;
+	flex-direction: row;
+	align-items: baseline;
+
 	background-color: @select-input-bg;
 	border-color: lighten(@select-input-border-color, 5%) @select-input-border-color darken(@select-input-border-color, 10%);
 	border-radius: @select-input-border-radius;
 	border: @select-input-border-width solid @select-input-border-color;
 	color: @select-text-color;
 	cursor: default;
-	display: table;
 	border-spacing: 0;
 	border-collapse: separate;
 	height: @select-input-height;
@@ -61,12 +64,6 @@
 
 	&:hover {
 		box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
-	}
-}
-
-.is-searchable {
-	&.is-open > .Select-control {
-		cursor: text;
 	}
 }
 
@@ -82,30 +79,22 @@
 	}
 }
 
-.is-searchable {
-	&.is-focused:not(.is-open) > .Select-control {
-		cursor: text;
-	}
-}
-
 .is-focused:not(.is-open) > .Select-control {
 	.Select-focus-state(@select-input-border-focus);
 }
 
 // placeholder
 .Select-placeholder,
-.Select--single > .Select-control .Select-value {
-	bottom: 0;
-	color: @select-input-placeholder;
-	left: 0;
+.Select-value {
+	flex: 1 0 auto;
+
 	line-height: @select-input-internal-height;
 	padding-left: @select-padding-horizontal;
 	padding-right: @select-padding-horizontal;
-	position: absolute;
-	right: 0;
-	top: 0;
 
-	// crop text
+	// text
+	color: #999;
+	font-size: 0.9em;
 	max-width: 100%;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -135,15 +124,15 @@
 
 .Select-input {
 	// inherits `display: inline-block` from "react-input-autosize"
-	height: @select-input-internal-height;
-	padding-left: @select-padding-horizontal;
-	padding-right: @select-padding-horizontal;
-	vertical-align: middle;
+	height: auto;
+	padding: @select-padding-horizontal;
+	width: 100%;
 
 	> input {
 		width: 100%;
+		cursor: text;
 		background: none transparent;
-		border: 0 none;
+		border: 1px solid #ccc;
 		box-shadow: none;
 		cursor: default;
 		display: inline-block;
@@ -154,12 +143,8 @@
 		outline: none;
 		// padding: 0;
 		line-height: 14px;  /* For IE 8 compatibility */
-		padding: ((@select-input-internal-height - 14) / 2 - 2) 0 ((@select-input-internal-height - 14) / 2 + 2);  /* For IE 8 compatibility */
+		padding: 4px 0;  /* For IE 8 compatibility */
 		-webkit-appearance: none;
-
-		.is-focused & {
-			cursor: text;
-		}
 	}
 
 }
@@ -195,11 +180,11 @@
 	.animation( Select-animation-fadeIn 200ms );
 	color: @select-clear-color;
 	cursor: pointer;
-	display: table-cell;
 	position: relative;
 	text-align: center;
 	vertical-align: middle;
 	width: @select-clear-width;
+	margin-right: 7px;
 
 	&:hover {
 		color: @select-clear-hover-color;
@@ -218,13 +203,19 @@
 // arrow indicator
 
 .Select-arrow-zone {
-	cursor: pointer;
-	display: table-cell;
-	position: relative;
-	text-align: center;
-	vertical-align: middle;
 	width: (@select-arrow-width * 5);
-	padding-right: @select-arrow-width;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	align-self: stretch;
+	border-left: 1px solid #ccc;
+	background: #eee;
+
+	.is-open & {
+		background: none;
+		border-left: none;
+	}
 }
 
 .Select-arrow {
@@ -234,6 +225,10 @@
 	display: inline-block;
 	height: 0;
 	width: 0;
+
+	.is-open & {
+		transform: rotate(0.5turn);
+	}
 }
 .is-open .Select-arrow,
 .Select-arrow-zone:hover > .Select-arrow {
