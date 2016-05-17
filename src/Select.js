@@ -608,35 +608,35 @@ const Select = React.createClass({
 		let renderLabel = this.props.valueRenderer || this.getOptionLabel;
 		let ValueComponent = this.props.valueComponent;
 		if (!valueArray.length) {
-			return !this.state.inputValue ? <div className="Select-placeholder">{this.props.placeholder}</div> : null;
+			return <div className="Select-placeholder">{this.props.placeholder}</div>;
 		}
 		let onClick = this.props.onValueClick || this.handleValueClick;
 		const onRemove = this.props.onValueRemove || this.removeValue;
 
 		if (this.props.multi) {
-			// pass in full valueArray, and stop mapping over the ValueComponent when multi === true
-			return (
-				<ValueComponent
-					disabled={this.props.disabled}
-					onClick={onClick}
-					onRemove={onRemove}
-					value={valueArray}
-					>
-					{renderLabel({ placeholder: this.props.placeholder })}
-				</ValueComponent>
-			);
-		} else if (!this.state.inputValue) {
-			if (isOpen) onClick = null;
-			return (
-				<ValueComponent
-					disabled={this.props.disabled}
-					onClick={onClick}
-					value={valueArray[0]}
-					>
-					{renderLabel(valueArray[0])}
-				</ValueComponent>
-			);
-		}
+      // pass in full valueArray, and stop mapping over the ValueComponent when multi === true
+      return (
+        <ValueComponent
+          disabled={this.props.disabled}
+          onClick={onClick}
+          onRemove={onRemove}
+          value={valueArray}
+        >
+          {renderLabel({placeholder: this.props.placeholder})}
+        </ValueComponent>
+      );
+    }
+
+    if (isOpen) onClick = null;
+    return (
+      <ValueComponent
+        disabled={this.props.disabled}
+        onClick={onClick}
+        value={valueArray[0]}
+        >
+        {renderLabel(valueArray[0])}
+      </ValueComponent>
+    );
 	},
 
 	renderInput (valueArray) {
