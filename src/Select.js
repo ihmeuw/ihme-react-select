@@ -539,10 +539,7 @@ const Select = React.createClass({
 		event.stopPropagation();
 		event.preventDefault();
 		this.setValue(this.props.resetValue);
-		this.setState({
-			isOpen: false,
-			inputValue: '',
-		}, () => { this.focus(true); });
+		if (this.state.isOpen) this.closeMenu();
 	},
 
 	focusOption (option) {
