@@ -214,8 +214,8 @@ const Select = React.createClass({
 		}
 	},
 
-	focus(preventOpen = false) {
-		if (!this.state.isOpen && !preventOpen && (this.props.openAfterFocus || this._openAfterFocus)) {
+	focus() {
+		if (!this.state.isOpen && (this.props.openAfterFocus || this._openAfterFocus)) {
 			this.setState({
 				isOpen: true,
 			}, () => {
