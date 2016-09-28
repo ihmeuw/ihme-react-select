@@ -1058,6 +1058,7 @@ var Select = _react2['default'].createClass({
 					onBlur: this.handleInputBlur,
 					onChange: this.handleInputChange,
 					onFocus: this.handleInputFocus,
+					onKeyDown: this.handleKeyDown,
 					ref: 'input',
 					required: this.state.required,
 					value: this.state.inputValue
