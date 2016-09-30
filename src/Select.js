@@ -73,6 +73,10 @@ export const propTypes = {
 	optionClassName: React.PropTypes.string,    // additional class(es) to apply to the <Option /> elements
 	optionComponent: React.PropTypes.func,      // option component to render in dropdown
 	optionRenderer: React.PropTypes.func,       // optionRenderer: function (option) {}
+	optionStyle: React.PropTypes.oneOfType([
+		React.PropTypes.object,
+		React.PropTypes.func,
+	]),																					// styles to pass to <Option />; if a func, passed option object
 	options: React.PropTypes.array,             // array of options
 	placeholder: stringOrNode,                  // field placeholder, displayed when there's no value
 	required: React.PropTypes.bool,             // applies HTML5 required attribute when needed
@@ -760,13 +764,15 @@ const Select = React.createClass({
 				return this.props.menuRenderer({
 					focusedOption,
 					focusOption: this.focusOption,
+					hierarchical: this.props.hierarchical,
 					labelKey: this.props.labelKey,
+					multi: this.props.multi,
 					options,
+					optionClassName: this.props.optionClassName,
+					optionRenderer: this.props.optionRenderer,
+					optionStyle: this.props.optionStyle,
 					selectValue: this.selectValue,
 					valueArray,
-          multi: this.props.multi,
-          hierarchical: this.props.hierarchical,
-          optionRenderer: this.props.optionRenderer
 				});
 			} else {
 				let Option = this.props.optionComponent;
@@ -788,13 +794,14 @@ const Select = React.createClass({
 							className={optionClass}
 							isDisabled={option.disabled}
 							isFocused={isFocused}
+							isSelected={isSelected}
 							key={`option-${i}-${option[this.props.valueKey]}`}
 							onSelect={this.selectValue}
 							onFocus={this.focusOption}
 							option={option}
-							isSelected={isSelected}
 							ref={optionRef}
-							>
+							style={this.props.optionStyle}
+						>
 							{renderLabel(option)}
 						</Option>
 					);
