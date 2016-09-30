@@ -1,6 +1,6 @@
 {
   "name": "ihme-react-select",
-  "version": "1.2.5",
+  "version": "1.2.7",
   "description": "A Select control built with and for ReactJS; fork of JedWatson's React-Select",
   "main": "lib/Select.js",
   "style": "dist/ihme-react-select.min.css",
