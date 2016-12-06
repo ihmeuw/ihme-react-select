@@ -639,6 +639,10 @@ var Select = _react2['default'].createClass({
 			});
 		}
 
+		if (this.state.isOpen) {
+			return this.closeMenu();
+		}
+
 		if (this.state.isFocused) {
 			// On iOS, we can get into a state where we think the input is focused but it isn't really,
 			// since iOS ignores programmatic calls to input.focus() that weren't triggered by a click event.
@@ -994,7 +998,7 @@ var Select = _react2['default'].createClass({
 				this.props.placeholder
 			);
 		}
-		var onClick = this.handleValueClick;
+		var onClick = this.props.onValueClick ? this.handleValueClick : undefined;
 		var onRemove = this.props.onValueRemove || this.removeValue;
 
 		if (this.props.multi) {
