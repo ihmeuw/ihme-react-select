@@ -284,6 +284,10 @@ const Select = React.createClass({
 			});
 		}
 
+		if (this.state.isOpen) {
+		  return this.closeMenu();
+    }
+
 		if (this.state.isFocused) {
 			// On iOS, we can get into a state where we think the input is focused but it isn't really,
 			// since iOS ignores programmatic calls to input.focus() that weren't triggered by a click event.
