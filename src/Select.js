@@ -614,7 +614,7 @@ const Select = React.createClass({
 		if (!valueArray.length) {
 			return <div className="Select-placeholder">{this.props.placeholder}</div>;
 		}
-		let onClick = this.handleValueClick;
+		let onClick = this.props.onValueClick ? this.handleValueClick : undefined;
 		const onRemove = this.props.onValueRemove || this.removeValue;
 
 		if (this.props.multi) {
