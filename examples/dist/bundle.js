@@ -539,6 +539,7 @@ var propTypes = {
 	optionClassName: _react2['default'].PropTypes.string, // additional class(es) to apply to the <Option /> elements
 	optionComponent: _react2['default'].PropTypes.func, // option component to render in dropdown
 	optionRenderer: _react2['default'].PropTypes.func, // optionRenderer: function (option) {}
+	optionStyle: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.object, _react2['default'].PropTypes.func]), // styles to pass to <Option />; if a func, passed option object
 	options: _react2['default'].PropTypes.array, // array of options
 	placeholder: stringOrNode, // field placeholder, displayed when there's no value
 	required: _react2['default'].PropTypes.bool, // applies HTML5 required attribute when needed
@@ -747,6 +748,10 @@ var Select = _react2['default'].createClass({
 			return this.setState({
 				isOpen: !this.state.isOpen
 			});
+		}
+
+		if (this.state.isOpen) {
+			return this.closeMenu();
 		}
 
 		if (this.state.isFocused) {
@@ -984,7 +989,7 @@ var Select = _react2['default'].createClass({
 	selectValue: function selectValue(value) {
 		this.hasScrolledToOption = false;
 		if (this.props.multi) {
-			this.props.value.includes(value) ? this.removeValue(value) : this.addValue(value);
+			this.props.value.indexOf(value) !== -1 ? this.removeValue(value) : this.addValue(value);
 			this.setState({
 				inputValue: ''
 			});
@@ -1104,7 +1109,7 @@ var Select = _react2['default'].createClass({
 				this.props.placeholder
 			);
 		}
-		var onClick = this.handleValueClick;
+		var onClick = this.props.onValueClick ? this.handleValueClick : undefined;
 		var onRemove = this.props.onValueRemove || this.removeValue;
 
 		if (this.props.multi) {
@@ -1169,6 +1174,7 @@ var Select = _react2['default'].createClass({
 					onBlur: this.handleInputBlur,
 					onChange: this.handleInputChange,
 					onFocus: this.handleInputFocus,
+					onKeyDown: this.handleKeyDown,
 					ref: 'input',
 					required: this.state.required,
 					value: this.state.inputValue
@@ -1244,13 +1250,15 @@ var Select = _react2['default'].createClass({
 				return this.props.menuRenderer({
 					focusedOption: focusedOption,
 					focusOption: this.focusOption,
-					labelKey: this.props.labelKey,
-					options: options,
-					selectValue: this.selectValue,
-					valueArray: valueArray,
-					multi: this.props.multi,
 					hierarchical: this.props.hierarchical,
-					optionRenderer: this.props.optionRenderer
+					labelKey: this.props.labelKey,
+					multi: this.props.multi,
+					options: options,
+					optionClassName: this.props.optionClassName,
+					optionRenderer: this.props.optionRenderer,
+					optionStyle: this.props.optionStyle,
+					selectValue: this.selectValue,
+					valueArray: valueArray
 				});
 			} else {
 				var _ret = (function () {
@@ -1275,12 +1283,13 @@ var Select = _react2['default'].createClass({
 									className: optionClass,
 									isDisabled: option.disabled,
 									isFocused: isFocused,
+									isSelected: isSelected,
 									key: 'option-' + i + '-' + option[_this4.props.valueKey],
 									onSelect: _this4.selectValue,
 									onFocus: _this4.focusOption,
 									option: option,
-									isSelected: isSelected,
-									ref: optionRef
+									ref: optionRef,
+									style: _this4.props.optionStyle
 								},
 								renderLabel(option)
 							);
