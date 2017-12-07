@@ -1,13 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Select from 'react-select';
+import createReactClass from 'create-react-class';
 
 const STATES = require('../data/states');
 
-var StatesField = React.createClass({
+var StatesField = createReactClass({
 	displayName: 'StatesField',
 	propTypes: {
-		label: React.PropTypes.string,
-		searchable: React.PropTypes.bool,
+		label: PropTypes.string,
+		searchable: PropTypes.bool,
 	},
 	getDefaultProps () {
 		return {

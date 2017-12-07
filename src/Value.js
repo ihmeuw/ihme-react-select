@@ -1,16 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import createReactClass from 'create-react-class';
 import classNames from 'classnames';
 
-const Value = React.createClass({
+const Value = createReactClass({
 
 	displayName: 'Value',
 
 	propTypes: {
-		children: React.PropTypes.node,
-		disabled: React.PropTypes.bool,               // disabled prop passed to ReactSelect
-		onClick: React.PropTypes.func,                // method to handle click on value label
-		onRemove: React.PropTypes.func,               // method to handle removal of the value
-		value: React.PropTypes.object.isRequired,     // the option object for this value
+		children: PropTypes.node,
+		disabled: PropTypes.bool,               // disabled prop passed to ReactSelect
+		onClick: PropTypes.func,                // method to handle click on value label
+		onRemove: PropTypes.func,               // method to handle removal of the value
+		value: PropTypes.object.isRequired,     // the option object for this value
 	},
 
 	handleMouseDown (event) {

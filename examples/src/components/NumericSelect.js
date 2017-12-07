@@ -1,10 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Select from 'react-select';
+import createReactClass from 'create-react-class';
 
-var ValuesAsNumbersField = React.createClass({
+var ValuesAsNumbersField = createReactClass({
 	displayName: 'ValuesAsNumbersField',
 	propTypes: {
-		label: React.PropTypes.string
+		label: PropTypes.string
 	},
 	getInitialState () {
 		return {
